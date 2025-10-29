@@ -5,7 +5,10 @@
         <div class="container px-4">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
-                    <h2>Welcome to Expense Manager</h2>
+                    @include('layouts.message')
+                    @if(auth()->check())
+                    <h2>Welcome {{ auth()->user()->name }}</h2>
+                    @endif
                     <p class="lead">This application helps you to record your expense and income.</p>
                 </div>
             </div>
