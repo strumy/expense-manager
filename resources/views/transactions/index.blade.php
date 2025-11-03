@@ -24,6 +24,36 @@
                     <h2>Transaction List</h2>
                     <a class="btn btn-primary" href="{{ route('transactions.create') }}">Create Transaction</a>
                 </div>
+                <form method="GET" action="{{ route('transactions.index') }}">
+                    <div class="d-flex flex-row input-group mb-3">
+                        <select class="form-select form-control" aria-label="TypeSelect" name="type", id="type">
+                            <option value="any" 
+                            @if( app('request')->input('type') == 'any' )
+                                <option value="any" selected>Any</option>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            @elseif (app('request')->input('type') == 'expense' )
+                                <option value="any">Any</option>
+                                <option value="expense" selected>Expense</option>
+                                <option value="income">Income</option>
+                            @elseif ( app('request')->input('type') == 'income' )
+                                <option value="any">Any</option>
+                                <option value="expense">Expense</option>
+                                <option value="income" selected>Income</option>
+                            @else
+                                <option value="any" selected>Any</option>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            @endif
+                        </select>
+                        <input type="text" class="form-control" aria-label="Search term" placeholder="Type a search term" name="searchterm"
+                        @if  ( app('request')->input('searchterm') != '')
+                        value="{{ app('request')->input('searchterm')  }}"
+                        @endif
+                        >
+                        <button type="submit" class="form-control btn btn-outline-secondary w-3">Search</button>
+                    </div>
+                </form>
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif

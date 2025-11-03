@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Transaction as FormTransactionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -13,13 +14,27 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::all();
-        $message = "Transactions retrieved successfully.";
-        $success = true;
+        $searchterm = $request->input('searchterm') ? $request->input('searchterm') : null;
+        $type = $request->input('type') ? $request->input('type') : null;
 
-        return view('transactions.index', compact('transactions', 'message', 'success'));
+        if ( ($type == 'expense' || $type == 'income' ) && $searchterm == null) {
+            $transactions = Transaction::where('type', '=',$type)
+                                        ->get();
+        } elseif ( ($type == 'expense' || $type == 'income' ) && $searchterm != null) {
+            $transactions = Transaction::where('type', '=',$type)
+                                        ->where('title', 'like', '%'. $searchterm . '%')
+                                        ->get();
+        } elseif ($type == 'any' || $searchterm != null) {
+            $transactions = Transaction::where('title', 'like', '%'. $searchterm . '%')
+                                        ->get();
+        }
+        else {
+            $transactions = Transaction::all();
+        }
+
+        return view('transactions.index', compact('transactions' ));
     }
 
     /**

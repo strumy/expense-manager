@@ -36,9 +36,9 @@
                     @endsession
                     <div class="row mb-4">
                         <div class="col">
-                            <div class="form-outline mb-4">
-                                <input type="text" id="title" class="form-control" name="title" placeholder="Write the purpose of your transaction."required>
+                            <div class="mb-4">
                                 <label class="form-label" for="title">Title</label>
+                                <input type="text" id="title" class="form-control" name="title" placeholder="Write the purpose of your transaction."required>
                             </div>
                             @error('title')
                             <span class="invalid-feedback" role="alert">
@@ -48,9 +48,9 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-outline">
-                                <input type="number" id="amount" class="form-control" step="0.01" name="amount" placeholder="Type any amount above 0.0" required>
+                            <div class="mb-4">
                                 <label class="form-label" for="amount">Amount</label>
+                                <input type="number" id="amount" class="form-control" step="0.01" name="amount" placeholder="Type any amount above 0.0" required>
                             </div>
                             @error('amount')
                                 <span class="invalid-feedback" role="alert">
@@ -61,9 +61,9 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col">
-                            <div class="form-outline mb-4">
+                            <div class="mb-4">
+                                <label for="date_of_transaction" class="form-label" hidden>Date</label>
                                 <input type="date" class="form-control" name="date_of_transaction" id="date_of_transaction" required>
-                                <label for="date_of_transaction" class="form-label">Date</label>
                             </div>
                             @error('date_of_transaction')
                                 <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                             @enderror
                         </div>
                         <div class="col">
-                            <div class="form-outline">
+                            <div class="mb-4">
                                 <select class="form-select" name="type" id="type" required>
                                     <option value="expense">Expense</option>
                                     <option value="income">Income</option>
@@ -85,7 +85,7 @@
                             @enderror
                         </div>
                         <div class="col">
-                            <div class="form-outline mb-4">
+                            <div class="mb-4">
                                 <select class="form-select" name="status" id="status" required>
                                     <option value="enabled" selected>Enabled</option>
                                     <option value="disabled">Disabled</option>
