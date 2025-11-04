@@ -12,6 +12,7 @@ ExpenseManager is a simple Laravel (v.12) application with Fortify package to ke
 + View Transaction
 + Update Transaction
 + Delete Transaction
++ Filter Transaction list by Search title text and transaction type.
 
 ## Installation
 + Pre-requisites:
