@@ -40,4 +40,4 @@ git clone https://github.com/strumy/expense-manager.git && cd expense-manager/
 
 ## License
 
-The TaskListApp software is using license under the [MIT license](https://opensource.org/licenses/MIT).
+The Expense Manager software is using license under the [MIT license](https://opensource.org/licenses/MIT).
