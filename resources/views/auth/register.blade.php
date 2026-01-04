@@ -2,7 +2,7 @@
 
 @section('top')
     <section id="signup">
-        <div class="container px-4">
+        <div class="container px-4 my-3">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
                     @include('layouts.message')
@@ -14,10 +14,9 @@
     </section>
 @endsection
 
-
-@section('services')
+@section('content')
     <section class="bg-light" id="registration">
-        <div class="container px-4">
+        <div class="container p-4 my-3">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
                     <form method="POST" action="{{ route('register') }}">

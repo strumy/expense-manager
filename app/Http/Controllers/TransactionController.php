@@ -18,21 +18,25 @@ class TransactionController extends Controller
     {
         $searchterm = $request->input('searchterm') ? $request->input('searchterm') : null;
         $type = $request->input('type') ? $request->input('type') : null;
+        $perPage = 5;
 
         if ( ($type == 'expense' || $type == 'income' ) && $searchterm == null) {
             $transactions = Transaction::where('type', '=',$type)
-                                        ->get();
+                                        ->paginate($perPage);
         } elseif ( ($type == 'expense' || $type == 'income' ) && $searchterm != null) {
             $transactions = Transaction::where('type', '=',$type)
                                         ->where('title', 'like', '%'. $searchterm . '%')
-                                        ->get();
+                                        ->paginate($perPage);
         } elseif ($type == 'any' || $searchterm != null) {
             $transactions = Transaction::where('title', 'like', '%'. $searchterm . '%')
-                                        ->get();
+                                        ->paginate($perPage);
         }
         else {
-            $transactions = Transaction::all();
+            $transactions = Transaction::query()->paginate($perPage);
         }
+
+        $transactions->appends(key: ['searchterm' => $searchterm]);
+        $transactions->appends(key: ['type' => $type]);
 
         return view('transactions.index', compact('transactions' ));
     }

@@ -6,14 +6,11 @@
         <!-- Navigation-->
         @include('layouts.navigation')
         
-        <!-- Header-->
-        @include('layouts.header')
-        
         <!-- Top section-->
         @yield('top')
 
-        <!-- Services section-->
-        @yield('services')
+        <!-- Content section-->
+        @yield('content')
 
         <!-- Footer-->
         @include('layouts.footer')

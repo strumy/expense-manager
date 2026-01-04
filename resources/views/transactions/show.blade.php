@@ -2,23 +2,25 @@
 
 @section('top')
     <section id="home">
-        <div class="container px-4">
-            <div class="row gx-4 justify-content-center">
+        <div class="container-flex px-4">
+            <div class="row justify-content-center">
                 <div class="col-lg-8">
                     @include('layouts.message')
-                    <h2>Add New Transaction</h2>
-                    <p class="lead">Please provide the required transaction data to create a new tranaction.</p>
+                    <div class="d-flex justify-content-between my-3">
+                        <h2>Transaction Details</h2>
+                        <a class="btn btn-secondary" href="{{ route('transactions.index') }}" >Transaction List</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('services')
+@section('content')
 
 <section class="bg-light" id="show_transaction">
-    <div class="container py-2">
-        <div class="row gx-4 justify-content-center">
+    <div class="container-flex py-2">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,9 +28,6 @@
 
                 <div class="container mt-4">
                     <div class="card">
-                        <div class="card-header bg-primary text-white">
-                            <h4>Transaction Details</h4>
-                        </div>
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <tr>
@@ -68,7 +67,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <a href="{{ route('transactions.index') }}" class="btn btn-secondary">Back to List</a>
+                            <a class="btn btn-warning" href="{{ route('transactions.edit', $transaction) }}">Update Transaction</a>
                         </div>
                     </div>
                 </div>

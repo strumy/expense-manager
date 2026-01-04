@@ -2,27 +2,27 @@
 
 @section('top')
     <section id="home">
-        <div class="container px-4">
-            <div class="row gx-4 justify-content-center">
-                <div class="col-lg-8">
+        <div class="container-flex">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 my-3">
                     @include('layouts.message')
                     <h2>Update Transaction</h2>
+                    <div class="d-flex justify-content-between">
                     <p class="lead">Please provide the correct required transaction data to update the tranaction with id:{{ $transaction->id }}.</p>
+                    <a class="btn btn-secondary" href="{{ route('transactions.index') }}">Transaction List</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('services')
+@section('content')
 
 <section class="bg-light" id="create_transaction">
-    <div class="container py-2">
-        <div class="row gx-4 justify-content-center">
+    <div class="container-flex py-2">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="d-flex justify-content-between mb-3">
-                    <a class="btn btn-primary" href="{{ route('transactions.index') }}">Transaction List</a>
-                </div>
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
@@ -118,7 +118,7 @@
                     <div class="col">
                         <div class="d-flex flex-row mb-3">
                             <div class="p-2"><button class="btn btn-primary" type="submit">Update Transactionr</button></div>
-                            <div class="p-2"><a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-secondary">Cancel</a></div>
+                            <div class="p-2"><a href="{{ route('transactions.index') }}" class="btn btn-secondary">Cancel</a></div>
                         </div>
                     </div>
                 </form>

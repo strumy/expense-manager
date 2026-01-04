@@ -2,58 +2,57 @@
 
 @section('top')
     <section id="home">
-        <div class="container px-4">
-            <div class="row gx-4 justify-content-center">
-                <div class="col-lg-8">
+        <div class="container-flex">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 my-3">
                     @include('layouts.message')
-                    <h2>List of Transactions</h2>
-                    <p class="lead">This application helps you to record your expense and income.</p>
+                    <h2>Transactions</h2>
+                    <div class="d-flex justify-content-between">
+                        <p class="lead">This application helps you to record your expense and income.</p>
+                        <a class="btn btn-primary" href="{{ route('transactions.create') }}">Create Transaction</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('services')
+@section('content')
 
 <section class="bg-light" id="transaction_list">
     <div class="container-flex">
         <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="d-flex justify-content-between mb-3">
-                    <h2>Transaction List</h2>
-                    <a class="btn btn-primary" href="{{ route('transactions.create') }}">Create Transaction</a>
-                </div>
+            <div class="col-lg-8 my-3">
                 <form method="GET" action="{{ route('transactions.index') }}">
                     <div class="d-flex flex-row input-group mb-3">
                         <select class="form-select form-control" aria-label="TypeSelect" name="type", id="type">
-                            <option value="any" 
                             @if( app('request')->input('type') == 'any' )
-                                <option value="any" selected>Any</option>
+                                <option value="any" selected>Income and Expense</option>
                                 <option value="expense">Expense</option>
                                 <option value="income">Income</option>
                             @elseif (app('request')->input('type') == 'expense' )
-                                <option value="any">Any</option>
+                                <option value="any">Income and Expense</option>
                                 <option value="expense" selected>Expense</option>
                                 <option value="income">Income</option>
                             @elseif ( app('request')->input('type') == 'income' )
-                                <option value="any">Any</option>
+                                <option value="any">Income and Expense</option>
                                 <option value="expense">Expense</option>
                                 <option value="income" selected>Income</option>
                             @else
-                                <option value="any" selected>Any</option>
+                                <option value="any" selected>Income and Expense</option>
                                 <option value="expense">Expense</option>
                                 <option value="income">Income</option>
                             @endif
                         </select>
                         <input type="text" class="form-control" aria-label="Search term" placeholder="Type a search term" name="searchterm"
-                        @if  ( app('request')->input('searchterm') != '')
-                        value="{{ app('request')->input('searchterm')  }}"
+                        @if  (app('request')->input('searchterm') != '')
+                            value="{{ app('request')->input('searchterm')  }}"
                         @endif
                         >
                         <button type="submit" class="form-control btn btn-outline-secondary w-3">Search</button>
                     </div>
                 </form>
+                {{ $transactions->links() }}
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
@@ -90,6 +89,7 @@
                     </tr>
                     @endforeach
                 </table>
+                {{ $transactions->links() }}
             </div>
         </div>
     </div>

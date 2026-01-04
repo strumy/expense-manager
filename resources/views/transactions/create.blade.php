@@ -2,27 +2,28 @@
 
 @section('top')
     <section id="home">
-        <div class="container px-4">
-            <div class="row gx-4 justify-content-center">
-                <div class="col-lg-8">
+        <div class="container-flex">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mt-5">
                     @include('layouts.message')
                     <h2>Add New Transaction</h2>
-                    <p class="lead">Please provide the required transaction data to create a new tranaction.</p>
+                    
+                    <div class="d-flex justify-content-between my-3">
+                        <p class="lead">Please provide the required transaction data to create a new tranaction.</p>
+                        <a class="btn btn-secondary" href="{{ route('transactions.index') }}">Transaction List</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('services')
+@section('content')
 
 <section class="bg-light" id="create_transaction">
-    <div class="container py-2">
-        <div class="row gx-4 justify-content-center">
+    <div class="container-flex my-5">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="d-flex justify-content-between mb-3">
-                    <a class="btn btn-primary" href="{{ route('transactions.index') }}">Transaction List</a>
-                </div>
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
@@ -100,7 +101,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary btn-block mb-4" type="submit">Create Transactionr</button>
+                    <button class="btn btn-primary mb-4" type="submit">Create Transactionr</button>
                 </form>
             </div>
         </div>
