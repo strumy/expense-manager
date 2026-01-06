@@ -10,7 +10,7 @@
                     
                     <div class="d-flex justify-content-between my-3">
                         <p class="lead">Please provide the required transaction data to create a new tranaction.</p>
-                        <a class="btn btn-secondary" href="{{ route('transactions.index') }}">Transaction List</a>
+                        <a class="btn btn-secondary" href="{{ route('user.transactions.index') }}">Transaction List</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                <form method="POST" action="{{ route('transactions.store') }}">
+                <form method="POST" action="{{ route('user.transactions.store') }}">
                     @csrf
 
                     @session('error')

@@ -19,7 +19,7 @@
         <div class="container p-4 my-3">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
                         @csrf
 
                         @if(session('error'))

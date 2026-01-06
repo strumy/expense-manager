@@ -19,7 +19,7 @@
         <div class="container p-4 my-3">
             <div class="row gx-4 justify-content-center">
                 <div class="col-lg-8">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
                         @csrf
 
                         @session('error')
@@ -31,22 +31,22 @@
                         <div class="row gy-2 overflow-hidden">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="example@xyz.com" required>
-                                    <label for="email" class="form-label">{{ __('Email ') }}</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="example@xyz.com" value="{{ old('email') }}" required>
+                                    <label for="email" class="form-label">{{ __('Email') }}</label>
                                 </div>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="" placeholder="Password" required>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="{{ old('password') }}" placeholder="Password" required>
                                     <label for="password" class="form-label">{{ __('Password') }}</label>
                                 </div>
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

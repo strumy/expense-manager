@@ -8,7 +8,7 @@
                     @include('layouts.message')
                     <div class="d-flex justify-content-between my-3">
                         <h2>Transaction Details</h2>
-                        <a class="btn btn-secondary" href="{{ route('transactions.index') }}" >Transaction List</a>
+                        <a class="btn btn-secondary" href="{{ route('user.transactions.index') }}" >Transaction List</a>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <a class="btn btn-warning" href="{{ route('transactions.edit', $transaction) }}">Update Transaction</a>
+                            <a class="btn btn-warning" href="{{ route('user.transactions.edit', $transaction) }}">Update Transaction</a>
                         </div>
                     </div>
                 </div>

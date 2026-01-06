@@ -9,7 +9,7 @@
                     <h2>Transactions</h2>
                     <div class="d-flex justify-content-between">
                         <p class="lead">This application helps you to record your expense and income.</p>
-                        <a class="btn btn-primary" href="{{ route('transactions.create') }}">Create Transaction</a>
+                        <a class="btn btn-primary" href="{{ route('user.transactions.create') }}">Create Transaction</a>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
     <div class="container-flex">
         <div class="row justify-content-center">
             <div class="col-lg-8 my-3">
-                <form method="GET" action="{{ route('transactions.index') }}">
+                <form method="GET" action="{{ route('user.transactions.index') }}">
                     <div class="d-flex flex-row input-group mb-3">
                         <select class="form-select form-control" aria-label="TypeSelect" name="type", id="type">
                             @if( app('request')->input('type') == 'any' )
@@ -56,17 +56,25 @@
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                <table class="table table-bordered">
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Date</th>
+                <table class="table table-borderless table-hover"
+                    id="table"
+                    data-toggle="table"
+                    data-sort-name="name"
+                    data-sort-order="desc"
+                >
+                <thead>
+                    <tr class="table-success">
+                        <th data-sortable="true" data-field="id">ID</th>
+                        <th data-sortable="true" data-field="title">Title</th>
+                        <th data-sortable="true" data-field="type">Type</th>
+                        <th data-sortable="true" data-field="amount">Amount</th>
+                        <th data-sortable="true" data-field="date">Date</th>
                         <th>Action</th>
                     </tr>
+                </thead>
+                <tbody>
                     @foreach ($transactions as $transaction)
-                    <tr>
+                    <tr class="table-default">
                         <td>{{ $transaction->id }}</td>
                         <td>{{ $transaction->title }}</td>
                         <td>@if ( $transaction->type == "expense")
@@ -78,9 +86,9 @@
                         <td>{{ $transaction->amount }}</td>
                         <td>{{ \Carbon\Carbon::parse($transaction->date_of_transaction)->format('F j, Y')}}</td>
                         <td>
-                            <a class="btn btn-info btn-sm" href="{{ route('transactions.show', $transaction) }}">Show</a>
-                            <a class="btn btn-warning btn-sm" href="{{ route('transactions.edit', $transaction) }}">Edit</a>
-                            <form action="{{ route('transactions.destroy', $transaction) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
+                            <a class="btn btn-info btn-sm" href="{{ route('user.transactions.show', $transaction) }}">Show</a>
+                            <a class="btn btn-warning btn-sm" href="{{ route('user.transactions.edit', $transaction) }}">Edit</a>
+                            <form action="{{ route('user.transactions.destroy', $transaction) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
                                 @csrf 
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm" type="submit" >Delete</button>
@@ -88,6 +96,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    </tbody>
                 </table>
                 {{ $transactions->links() }}
             </div>

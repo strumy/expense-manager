@@ -1,0 +1,9 @@
+.invalid-feedback{
+    position: absolute;
+    display: block;
+    width: auto;
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: #dc4c64;
+    margin-top: -0.75rem;
+}

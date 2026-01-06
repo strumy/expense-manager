@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Transaction as FormTransactionRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class TransactionController extends Controller
 {
@@ -21,27 +21,27 @@ class TransactionController extends Controller
         $perPage = 10;
 
         if ( ($type == 'expense' || $type == 'income' ) && $searchterm == null) {
-            $transactions = Transaction::where('type', '=',$type)
+            $transactions = auth()->user()->transactions()->where('type', '=',$type)
                                         ->with('user')
                                         ->paginate($perPage);
         } elseif ( ($type == 'expense' || $type == 'income' ) && $searchterm != null) {
-            $transactions = Transaction::where('type', '=',$type)
+            $transactions = auth()->user()->transactions()->where('type', '=',$type)
                                         ->where('title', 'like', '%'. $searchterm . '%')
                                         ->with('user')
                                         ->paginate($perPage);
         } elseif ($type == 'any' || $searchterm != null) {
-            $transactions = Transaction::where('title', 'like', '%'. $searchterm . '%')
+            $transactions = auth()->user()->transactions()->where('title', 'like', '%'. $searchterm . '%')
                                         ->with('user')
                                         ->paginate($perPage);
         }
         else {
-            $transactions = Transaction::query()->with('user')->paginate($perPage);
+            $transactions = auth()->user()->transactions()->with('user')->paginate($perPage);
         }
 
         $transactions->appends(key: ['searchterm' => $searchterm]);
         $transactions->appends(key: ['type' => $type]);
 
-        return view('transactions.index', compact('transactions' ));
+        return view('auth.user.transactions.index', compact('transactions' ));
     }
 
     /**
@@ -49,7 +49,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('transactions.create');
+        return view('auth.user.transactions.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class TransactionController extends Controller
 
         Transaction::create($validated);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction created successfully.');
+        return redirect()->route('user.transactions.index')->with('success', 'Transaction created successfully.');
     }
 
     /**
@@ -72,8 +72,7 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
         $message = 'Transaction with id = ' . str($id) . "retrieved successfully.";
 
-        //return view('transactions.show', compact('transaction'));
-        return view('transactions.show', compact('transaction', 'message'));
+        return view('auth.user.transactions.show', compact('transaction', 'message'));
     }
 
     /**
@@ -83,7 +82,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
         
-        return view('transactions.edit', compact('transaction'));
+        return view('auth.user.transactions.edit', compact('transaction'));
     }
 
     /**
@@ -95,7 +94,7 @@ class TransactionController extends Controller
 
         Transaction::findOrFail($id)->update($validated);
 
-        return redirect()->route('transactions.index')->with(key: 'message', value: 'Transaction with id: '.str($id).' was updated successfully.');
+        return redirect()->route('user.transactions.index')->with(key: 'message', value: 'Transaction with id: '.str($id).' was updated successfully.');
     }
 
     /**
@@ -112,6 +111,6 @@ class TransactionController extends Controller
             }
         DB::commit(); 
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction with id:'.str($id).' was deleted successfully.');
+        return redirect()->route('user.transactions.index')->with('success', 'Transaction with id:'.str($id).' was deleted successfully.');
     }
 }

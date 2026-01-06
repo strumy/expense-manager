@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Transaction as FormTransactionRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class TransactionController extends Controller
 {
@@ -41,7 +41,7 @@ class TransactionController extends Controller
         $transactions->appends(key: ['searchterm' => $searchterm]);
         $transactions->appends(key: ['type' => $type]);
 
-        return view('transactions.index', compact('transactions' ));
+        return view('auth.admin.transactions.index', compact('transactions' ));
     }
 
     /**
@@ -49,7 +49,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('transactions.create');
+        return view('auth.admin.transactions.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class TransactionController extends Controller
 
         Transaction::create($validated);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction created successfully.');
+        return redirect()->route('admin.transactions.index')->with('success', 'Transaction created successfully.');
     }
 
     /**
@@ -73,7 +73,7 @@ class TransactionController extends Controller
         $message = 'Transaction with id = ' . str($id) . "retrieved successfully.";
 
         //return view('transactions.show', compact('transaction'));
-        return view('transactions.show', compact('transaction', 'message'));
+        return view('auth.admin.transactions.show', compact('transaction', 'message'));
     }
 
     /**
@@ -83,7 +83,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
         
-        return view('transactions.edit', compact('transaction'));
+        return view('auth.admin.transactions.edit', compact('transaction'));
     }
 
     /**
@@ -95,7 +95,7 @@ class TransactionController extends Controller
 
         Transaction::findOrFail($id)->update($validated);
 
-        return redirect()->route('transactions.index')->with(key: 'message', value: 'Transaction with id: '.str($id).' was updated successfully.');
+        return redirect()->route('admin.transactions.index')->with(key: 'message', value: 'Transaction with id: '.str($id).' was updated successfully.');
     }
 
     /**
@@ -112,6 +112,7 @@ class TransactionController extends Controller
             }
         DB::commit(); 
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction with id:'.str($id).' was deleted successfully.');
+        return redirect()->route('admin.transactions.index')->with('success', 'Transaction with id:'.str($id).' was deleted successfully.');
     }
 }
+

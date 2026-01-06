@@ -9,7 +9,7 @@
                     <h2>Update Transaction</h2>
                     <div class="d-flex justify-content-between">
                     <p class="lead">Please provide the correct required transaction data to update the tranaction with id:{{ $transaction->id }}.</p>
-                    <a class="btn btn-secondary" href="{{ route('transactions.index') }}">Transaction List</a>
+                    <a class="btn btn-secondary" href="{{ route('user.transactions.index') }}">Transaction List</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
-                <form method="POST" action="{{ route('transactions.update', $transaction->id) }}">
+                <form method="POST" action="{{ route('user.transactions.update', $transaction->id) }}">
                     @csrf
                     @method('PUT')
 
@@ -117,8 +117,8 @@
                     </div>
                     <div class="col">
                         <div class="d-flex flex-row mb-3">
-                            <div class="p-2"><button class="btn btn-primary" type="submit">Update Transactionr</button></div>
-                            <div class="p-2"><a href="{{ route('transactions.index') }}" class="btn btn-secondary">Cancel</a></div>
+                            <div class="p-2"><button class="btn btn-primary" type="submit">Update Transaction</button></div>
+                            <div class="p-2"><a href="{{ route('user.transactions.index') }}" class="btn btn-secondary">Cancel</a></div>
                         </div>
                     </div>
                 </form>
